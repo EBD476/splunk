@@ -1,0 +1,25 @@
+ connect kafka to splunk:
+ 
+ -create splunk hec 8088
+ 
+ - docker exec -it  kafka-kafka-1 bash
+ - .$KAFKA_HOME/bin/connect-standalone.sh /etc/kafka/connect-standalone.properties
+  
+  
+ -  curl localhost:8083/connectors -X POST -H "Content-Type: application/json" -d '{ "name": "kafka-connect-splunk", "config": { "connector.class": "com.splunk.kafka.connect.SplunkSinkConnector","topics":"test-topic","splunk.hec.token": "06c4f21e-5a29-4931-886e-a105d6af2fb0","splunk.hec.uri":"http://192.168.164.150:8088","splunk.indexes": "main"} }'
+ 
+ 
+     # List active connectors
+    curl http://localhost:8083/connectors
+
+    # Get kafka-connect-splunk connector info
+    curl http://localhost:8083/connectors/kafka-connect-splunk
+
+    # Get kafka-connect-splunk connector config info
+    curl http://localhost:8083/connectors/kafka-connect-splunk/config
+
+    # Delete kafka-connect-splunk connector
+    curl http://localhost:8083/connectors/kafka-connect-splunk -X DELETE
+
+    # Get kafka-connect-splunk connector task info
+    curl http://localhost:8083/connectors/kafka-connect-splunk/tasks
