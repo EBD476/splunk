@@ -7,6 +7,19 @@
   
   
  -  curl localhost:8083/connectors -X POST -H "Content-Type: application/json" -d '{ "name": "kafka-connect-splunk", "config": { "connector.class": "com.splunk.kafka.connect.SplunkSinkConnector","topics":"test-topic","splunk.hec.token": "06c4f21e-5a29-4931-886e-a105d6af2fb0","splunk.hec.uri":"http://192.168.164.150:8088","splunk.indexes": "main"} }'
+
+
+ curl -k http://127.0.0.1:8088/services/collector -H 'Authorization: Splunk 06c4f21e-5a29-4931-886e-a105d6af2fb0' -d '{"sourcetype":"test","event":"Hello, world!"}'
+ 
+ 
+ curl --location --request POST 'http://127.0.0.1:8088/services/collector' \
+--header 'Authorization: Splunk 06c4f21e-5a29-4931-886e-a105d6af2fb0' \
+--header 'Content-Type: application/json' \
+--data-raw '{  
+  "time": 1571420739,
+  "sourcetype":"test",
+  "event": "testevent2"
+}'
  
  
      # List active connectors
