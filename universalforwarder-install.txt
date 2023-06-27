@@ -1,0 +1,31 @@
+Step 2: Install Forwarder
+Step 3: Enable boot-start/init script:
+
+	 #	/opt/splunkforwarder/bin/splunk enable boot-start
+		(start splunk: /opt/splunkforwarder/splunk start)
+		
+Step 4: Enable Receiving input on the Index Server
+
+	# /opt/splunk/bin/splunk enable listen 9997
+
+Step 5: Configure Forwarder connection to Index Server:	
+	# ./bin/splunk add forward-server 192.168.164.150:9997
+	
+Step 6: Test Forwarder connection:
+
+   # /opt/splunkforwarder/bin/splunk list forward-server
+
+Step 7: Add Data:
+
+/opt/splunkforwarder/bin/splunk add monitor /path/to/app/logs/ -index main -sourcetype %app%	
+
+
+Step 8 (Optional): Install and Configure UNIX app on Indexer and *nix forwarders:
+
+On the Splunk Server, go to Apps -> Manage Apps -> Find more Apps Online -> Search for ‘Splunk App for Unix and Linux’ -> Install the "Splunk App for Unix and Linux'
+
+Restart Splunk if prompted, Open UNIX app -> Configure
+
+Step 9 (Optional): Customize UNIX app configuration on forwarders:
+
+Look at inputs.conf in /opt/splunkforwarder/etc/apps/unix/local/ and /opt/splunkforwarder/etc/apps/unix/default/
